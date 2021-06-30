@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"> </head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"> </header>
+<div class="meContainer">
+    <div class="info_for_guest">
+        <div class="blockInformation">
+            <div class="blockMasters">
+                <div class="sort_navigation">
+                    <div class="sort">
+                        <h2 th:text="#{sort}"></h2>
+                        <form th:action="@{/AllMasters}" method="get">
+                            <label class="containerSort">
+                                <span th:text="#{name}" th:remove="tag">title</span>
+
+                                <input type="radio" name="sort" value="name">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="containerSort">
+                                <span  th:text="#{rating}" th:remove="tag">title</span>
+                                <input type="radio" name="sort" value="rating">
+                                <span class="checkmark"></span>
+                            </label>
+                            <input class="myButton" type="submit" th:value="#{button.sort}"/>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="masters_items" style="overflow-y:scroll; height:450px;">
+
+                    <th:block th:each="masterId : ${all_masters}">
+
+
+                        <div class="feature">
+                            <div class="featureNameSurname">
+                                <div class="feature-title">
+                                    <h2 th:utext="${masterId.getName()}">VALUE</h2>
+                                </div>
+                                <div class="feature-title">
+                                    <p th:utext="${masterId.getSurname()}">VALUE</p>
+                                </div>
+                            </div>
+                            <div class="review">
+                                <div class="feature-title">
+                                    <p th:utext="${masterId.getRating()}">VALUE</p>
+                                </div>
+                                <div class="feature-title">
+                                    <div class="reviews">
+                                        <a class="reviewsHref" href="#" th:text="#{review}"></a>
+                                        <div class="allReviews">
+                                            <th:block th:each="review : ${masterId.getReviews()}">
+
+                                                <!--                                            <c:forEach items="${masterId.reviews}" var="review">-->
+<!--                                                <p class="f"> ${review.user.firstName} ${review.user.lastName}</p>-->
+                                                <p class="f1" th:utext="${review.getReview()}">VALUE</p>
+                                                <!--                                            </c:forEach>-->
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </th:block>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

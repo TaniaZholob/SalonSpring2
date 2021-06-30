@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="conteiner" align="center">
+
+    <form class="logForm" th:method="POST" th:action="@{/register}"  th:object="${users}">
+        <h1 class="h1R" title="Форма реєстрації на сайті" th:text="#{registration}"></h1>
+        <input type="hidden" name="command" value="register"/>
+
+        <table style="with: 80%">
+            <tr>
+                <td title="Введіть свій емаіл" th:text="#{register.email}"></td>
+                <td><input type="email" th:field="*{username}" name="username" required/></td>
+            </tr>
+            <tr>
+                <td th:text="#{name}"></td>
+                <td><input type="text" th:field="*{firstname}" name="firstname" required/></td>
+            </tr>
+            <tr>
+                <td th:text="#{surname}"></td>
+                <td><input type="text" th:field="*{lastname}" name="lastname" required/></td>
+            </tr>
+            <tr>
+                <td th:text="#{register.password}"></td>
+                <td><input type="password" th:field="*{password}" name="password" required/></td>
+            </tr>
+
+        </table>
+        <input class="myButton" type="submit" th:value="#{register.do}"/>
+    </form>
+
+<!--    <c:if test="${not empty errorMessage}">-->
+<!--        <p th:text="#{register.wrong.dates}"></p>-->
+<!--    </c:if>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="meContainer3">
+    <div>
+        <h1 th:text="'Email: '+${user.getUsername()}"></h1>
+        <h1 th:text="${user.getFirstname()+' '+user.getLastname()}"></h1>
+    </div>
+    <h1 th:text="#{master.records}"></h1>
+    <div class="tablePagination">
+        <table class="table table-striped table-bordered table-sm">
+            <tr>
+                <th>№</th>
+                <th th:text="#{name.procedure}"></th>
+                <th th:text="#{name.surname.masterId}"></th>
+                <th th:text="#{time}"></th>
+                <th th:text="#{status.payment}"></th>
+
+            </tr>
+
+<!--            <span th:with="var=${0}"> </span>-->
+            <th:block th:each="record : ${orders}">
+
+
+                <tr>
+                    <td>1</td>
+                    <td th:utext="${record.getProcedure().getTitle()}"></td>
+                    <td th:utext="${record.getTimeSlot().getMaster().getName()+' '+record.getTimeSlot().getMaster().getSurname()}"></td>
+                    <td th:utext="${record.getTimeSlot().getFormatData()}"></td>
+                    <td>
+                        <span th:text="${record.getPaymentStatus()}" th:remove="tag">title</span>
+
+                        <form th:action="@{/client/{id}/paid(id=${record.getId()})}" th:if="${record.getPaymentStatus().name() == 'OPENED'}">
+                            <input class="myButton" type="submit" th:value='#{users.payment}'/>
+                        </form>
+
+                        <form th:action="@{/client/{id}/review(id=${record.getId()})}" th:if="${record.getPaymentStatus().name() == 'CLOSED'}">
+                            <div th:if="${record.getPerformance_status() == 'CLOSED'}">
+                            <input class="myButton" type="submit" th:value='#{users.feedback}'/></div>
+                        </form>
+
+            </th:block>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

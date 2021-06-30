@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="conteiner" align="center">
+    <form class="formProcedure" th:method="POST" th:action="@{/record/master}">
+        <h1 th:text="#{menu.procedures}"></h1>
+
+        <select class="selectProc" size="5" name="procedure" th:field="*{procedure.id}" th:object="${newOrder}"
+                data-style="btn-warning" required>
+            <!--            <option disabled th:text="#{menu.procedures}" th:value="${procedure.id}"></option>-->
+
+            <th:block th:each="procedure : ${procedureAll}">
+
+
+                <div class="feature">
+                    <option class="procedureOption" th:value="${procedure.id}">
+                        <div class="feature-title">
+                            <h2 th:utext="${procedure.getTitle()}"></h2>
+                            <!--&lt;!&ndash;                                <fmt:message key="procedure.${procedure.title}"/>-->
+
+                        </div>
+                    </option>
+                    <div class="feature-title">
+                        <p th:utext="${procedure.getPrice()}"></p>
+                    </div>
+                </div>
+                </option>
+            </th:block>
+
+        </select>
+        <p><input type="submit" class="btn btn-warning"
+                  th:value='#{record.users.select}'/></p>
+    </form>
+
+
+</div>
+</body>
+</html>

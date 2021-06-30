@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header class="header">
+    <div class="meContainer">
+        <div class="header_inner">
+            <div class="header_logo">
+                <a class="h1" href="/"><h1 th:text="#{beauty.salon}"></h1></a>
+            </div>
+            <nav class="nav">
+
+<!--                not login-->
+                <div sec:authorize="isAnonymous()">
+                    <a class="nav_link" th:href="@{/login}" methods="post" th:text="#{log_in}"></a>
+                </div>
+
+<!--                is login-->
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav_link" href="#">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="logout" type="submit" value="Sign Out"/>
+                        </form>
+                    </a>
+                </div>
+
+
+<!--                client-->
+                <div sec:authorize="hasAuthority('CLIENT')">
+                    <a class="nav_link" th:href="@{/client/accountPage}" th:text="#{users.acc}"></a>
+                    <a class="nav_link" href="/record/procedure" th:text="#{users.do.order}"></a>
+                </div>
+
+                <div sec:authorize="hasAuthority('MASTER')">
+                    <a class="nav_link" href="/master/schedule" th:text="#{masterId.view.schedule}"></a>
+                </div>
+
+                <div sec:authorize="hasAuthority('admin')">
+                    <a class="nav_link" href="/admin/records" th:text="#{admin.view.records}"></a>
+                </div>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav_link" href="/admin/records" th:text="#{admin.view.records}"></a>
+                </div>
+
+
+
+<!--                    all-->
+                <a class="nav_link" th:href="@{'?locale=ua'}" methods="get" th:text="#{header.button.ua}"></a>
+                <a class="nav_link" th:href="@{'?locale=en'}" methods="get" th:text="#{header.button.en}"></a>
+
+            </nav>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="meContainer3">
+
+    <form class="formFeedback" th:action="@{/client/addReview/{idMaster}(idMaster=${order.getTime_slot().getMaster().getId()})}" th:method="POST" th:object="${reviewO}" accept-charset="UTF-8" oninput="daysoutput.value=dayscount.value">
+
+        <fieldset class="fieldS">
+            <legend th:text="#{users.personal.data}"></legend>
+            <div class="half-width">
+                <label class="feedBackLable" >Email</label>
+                <input class="feedBackInput" type="text" th:value="${order.getUser().getUsername()}" disabled="">
+            </div>
+            <div class="half-width">
+                <label class="feedBackLable" for="1" th:text="#{users.name.surname}"></label>
+                <input class="feedBackInput" id="1" type="text" th:value="${order.getUser().getFirstname()}+' '+${order.getUser().getLastname()}" disabled="">
+            </div>
+        </fieldset>
+        <fieldset class="fieldS">
+            <legend th:text="#{feedback.phrase}"></legend>
+            <div class="half-width">
+                <label class="feedBackLable" for="2" th:text="#{name.procedure}"></label>
+                <input class="feedBackInput" id="2" type="text" th:value="${order.getProcedure().getTitle()}"  disabled="">
+            </div>
+            <div class="half-width">
+                <label class="feedBackLable" for="3" th:text="#{name.surname.masterId}"></label>
+                <input class="feedBackInput" id="3" type="text" th:value="${order.getTime_slot().getMaster().getName()+' '+order.getTime_slot().getMaster().getSurname()}" disabled="">
+            </div>
+            <div class="half-width">
+                <label class="feedBackLable" th:text="#{feedback.evaluation}"></label>
+                <input class="feedBackInput" th:field="*{rating}" type="range" min="0" max="10" step="1" name="dayscount" value="10"> 10
+            </div>
+            <div class="half-width output-area">
+                <output class="feedBackOutPut" name="daysoutput">10</output>
+            </div>
+            <label class="feedBackLable" for="4" th:text="#{feedback.text}"></label>
+            <textarea class="feedBackTextArea" th:field="*{review}" id="4" rows="5" name="review" th:text="#{feedback.text.enter}"></textarea>
+        </fieldset>
+        <div class="buttons">
+            <input class="myButton" type="submit" th:value="#{feedback.send}">
+        </div>
+    </form>
+</div>
+</body>
+</html>

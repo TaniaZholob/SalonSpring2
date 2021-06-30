@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="conteiner" align="center">
+<!--    <form th:action="@{/username}" method="post">-->
+<!--        <h1 class="h1R" title="Форма аторизації" th:text="#{username.aut}"></h1>-->
+<!--&lt;!&ndash;        <input type="hidden" name="command" value="authorization"/>&ndash;&gt;-->
+
+<!--        <table style="with: 80%">-->
+<!--            <tr>-->
+<!--                <td title="Введіть свій емаіл">Email</td>-->
+<!--                <td><input type="text" name="username"/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Пароль</td>-->
+<!--                <td><input type="text" name="password"/></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <input class="myButton" type="submit" th:value="#{username.logIn}"/>-->
+
+<!--    </form>-->
+
+
+
+    <form th:action="@{/login}" method="post">
+        <div><label> User Name : <input type="text" name="username"/> </label></div>
+        <div><label> Password: <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Sign In"/></div>
+
+    <a class="nav_link" th:href="@{/register}" methods="get" th:text="#{register.do}"></a>
+</div>
+</body>
+</html>
+

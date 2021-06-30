@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"-->
+<head th:insert="insert/head.html :: head"></head>
+
+
+<body class="bad">
+
+<header th:insert="insert/header.html :: header"></header>
+
+
+<div class="meContainer">
+
+    <div class="intro">
+        <div class="meContainer">
+            <div class="intro_inner">
+                <h1 class="intro_title">Welcome to studio of beauty</h1>
+
+
+
+                <div sec:authorize="isAuthenticated()">
+                    This content is only shown to authenticated users.
+                </div>
+<!--                for jdbcAuthentication-->
+                <div sec:authorize="hasAuthority('admin')">
+                    This content is only shown to administrators."hasAuthority('admin')"
+                </div>
+<!--                for userDetailService-->
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    This content is only shown to administrators."hasAuthority('ADMIN')"
+                </div>
+
+                <span th:text ="${#authentication.getPrincipal()}"></span>
+<!--                <span sec:authentication="principal."></span>-->
+
+
+                <div sec:authorize="hasAuthority('CLIENT')">
+                    This content is only shown to client.
+                </div>
+
+
+                Logged user: <span sec:authentication="name">Bob</span>
+
+
+            </div>
+        </div>
+        <div class="intro_slider">
+            <div class="meContainer">
+                <div class="slider_inner">
+                    <div class="slider_item active">
+                        <a class="nav_link" th:href="@{/AllMasters}" th:text="#{list.of.masters}"></a>
+                    </div>
+                    <div class="slider_item">
+                        <a class="nav_link" th:href="@{/allProcedures}" th:text="#{list.of.procedures}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

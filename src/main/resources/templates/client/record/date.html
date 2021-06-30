@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:insert="insert/head.html :: head"></head>
+
+
+<body class="bad">
+
+<header th:insert="insert/header.html :: header"></header>
+
+<div style="height:500px; width: 1000px;border: 1px solid #ddd; margin: auto; margin-top:11%;">
+    <div class="days">
+
+        <th:block th:each="myDay : ${allDates.getDays()}">
+
+
+            <div class="day">
+                <div class="datelabel"><strong th:text="${myDay.name()}">Friday</strong><br/>
+                    <span th:text="${allDates.getDate(myDay).getMonth().name()+' '+allDates.getDate(myDay).getDayOfMonth()}">August 23</span></div>
+
+
+                <th:block th:each="myHour : ${allDates.getHour(myDay)}">
+<!--                    <div class="timeslot" th:text="${myHour}">9:00am</div>-->
+
+
+                        <form th:method="POST" th:action="@{/record/setDate}" th:object="${newOrder}">
+                            <input th:type="hidden"  th:value="${allDates.getDate(myDay)+' '+myHour}" th:attr="name='timeSlot.date_time'"/>
+                            <input class="timeslot" type="submit" th:value='${myHour}'/>
+                        </form>
+
+
+
+                </th:block>
+            </div>
+        </th:block>
+
+    </div>
+</div>
+
+
+</body>
+</html>

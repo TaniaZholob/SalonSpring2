@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="insert/head.html :: head"></head>
+<body class="bad">
+<header th:insert="insert/header.html :: header"></header>
+<div class="conteiner" align="center">
+    <form class="formProcedure"  method="post" th:action="@{/record/date}">
+<!--        <h1><fmt:message key="menu.masters"/></h1>-->
+        <select class="selectProc" size="5" name="master" th:field="*{timeSlot.master.id}" data-style="btn-warning" required th:object="${newOrder}">
+<!--            <option disabled>Select service</option>-->
+
+            <th:block th:each="master : ${newOrder.getProcedure().getMastersList()}">
+                <div class="feature">
+                    <option class="procedureOption" th:value="${master.getId()}">
+                        <div class="feature-title">
+                            <h2 th:utext="${master.getName()}"></h2>
+                        </div>
+
+                        <div class="feature-title">
+                            <p th:utext="${master.getSurname()}"></p>
+                        </div>
+                    </option>
+                </div>
+                </option>
+            </th:block>
+        </select>
+        <p><input type="submit" class="btn btn-warning"
+                  th:value='#{record.users.select}'/></p>
+    </form>
+
+</div>
+</body>
+</html>
