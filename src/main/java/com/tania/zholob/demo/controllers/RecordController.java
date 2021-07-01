@@ -68,7 +68,7 @@ public class RecordController {
     @PostMapping("/setDate")
     public String doOrder(Orders order, HttpSession session) {
         Orders orders = (Orders) session.getAttribute("newOrder");
-            masterService.save(orders, order);
+        masterService.save(orders, order);
         return "redirect:/";
     }
 

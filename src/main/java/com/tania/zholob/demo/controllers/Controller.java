@@ -17,21 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Log4j2
 public class Controller {
 
-    @Autowired
-    private MasterServiceImpl masterService;
-
-    @Autowired
-    private ProcedureServiceImpl procedureService;
+    private final MasterServiceImpl masterService;
+    private final ProcedureServiceImpl procedureService;
 
 
-    @Autowired
-    private UserRepo userRepo;
-
+    public Controller(MasterServiceImpl masterService, ProcedureServiceImpl procedureService) {
+        this.masterService = masterService;
+        this.procedureService = procedureService;
+    }
 
     @GetMapping("/AllMasters")
     public String masters(Model model, @RequestParam(name = "sort", required = false, defaultValue = "sort") String sort) {
         Iterable<Masters> masters = masterService.getMasters(sort);
-        System.out.println(masters);
         model.addAttribute("all_masters", masters);
         return "listOfMasters";
     }

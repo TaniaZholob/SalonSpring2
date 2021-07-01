@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/master")
 @PreAuthorize("hasAuthority('MASTER')")
 public class MasterController {
-    private MasterService masterService;
-    private OrderService orderService;
+    private final MasterService masterService;
+    private final OrderService orderService;
 
     public MasterController(MasterService masterService, OrderService orderService) {
         this.masterService = masterService;
@@ -26,10 +26,6 @@ public class MasterController {
 
     @GetMapping("/schedule")
     public String schedule(Authentication authentication, Model model){
-
-
-//        System.out.println( masterService.getAllRecords(((UserPrincipal)authentication.getPrincipal()).getUser()));
-
         model.addAttribute("masterOrder", masterService.getAllRecords(((UserPrincipal)authentication.getPrincipal()).getUser()));
         return "master/schedule";
     }

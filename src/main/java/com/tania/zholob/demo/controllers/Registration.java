@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Registration {
 
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
+
+    public Registration(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @PostMapping("/register")
     public String addUser(@ModelAttribute("users") Users user, Model model) {
-        System.out.println("Got User: " + user);
         Users u = userRepo.findByUsername(user.getUsername());
         if (u != null) {
             model.addAttribute("message", "User exist");
