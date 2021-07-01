@@ -18,7 +18,7 @@
                 <div sec:authorize="isAuthenticated()">
                     <a class="nav_link" href="#">
                         <form th:action="@{/logout}" method="post">
-                            <input class="logout" type="submit" value="Sign Out"/>
+                            <input class="logout" type="submit" th:value="#{log_out}"/>
                         </form>
                     </a>
                 </div>

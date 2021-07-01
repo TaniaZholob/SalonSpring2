@@ -6,7 +6,7 @@
 <header th:insert="insert/header.html :: header"></header>
 <div class="meContainer3">
 
-    <form class="formFeedback" th:action="@{/client/addReview/{idMaster}(idMaster=${order.getTime_slot().getMaster().getId()})}" th:method="POST" th:object="${reviewO}" accept-charset="UTF-8" oninput="daysoutput.value=dayscount.value">
+    <form class="formFeedback" th:action="@{/client/addReview/{idMaster}(idMaster=${order.getTimeSlot().getMaster().getId()})}" th:method="POST" th:object="${reviewO}" accept-charset="UTF-8" oninput="daysoutput.value=dayscount.value">
 
         <fieldset class="fieldS">
             <legend th:text="#{users.personal.data}"></legend>
@@ -27,7 +27,7 @@
             </div>
             <div class="half-width">
                 <label class="feedBackLable" for="3" th:text="#{name.surname.masterId}"></label>
-                <input class="feedBackInput" id="3" type="text" th:value="${order.getTime_slot().getMaster().getName()+' '+order.getTime_slot().getMaster().getSurname()}" disabled="">
+                <input class="feedBackInput" id="3" type="text" th:value="${order.getTimeSlot().getMaster().getName()+' '+order.getTimeSlot().getMaster().getSurname()}" disabled="">
             </div>
             <div class="half-width">
                 <label class="feedBackLable" th:text="#{feedback.evaluation}"></label>

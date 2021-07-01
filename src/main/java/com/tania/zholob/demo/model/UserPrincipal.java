@@ -30,6 +30,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
+        System.out.println(user);
         return this.user.getPassword();
     }
 

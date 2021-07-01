@@ -20,8 +20,9 @@ public class UserPrincipalDetailsImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Users user = userRepo.findByUsername(s);
+        System.out.println(user);
         UserPrincipal userPrincipal = new UserPrincipal(user);
-
+        System.out.println(userPrincipal);
         return userPrincipal;
     }
 }

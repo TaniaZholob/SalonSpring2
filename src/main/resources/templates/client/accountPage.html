@@ -21,7 +21,7 @@
 
             </tr>
 
-<!--            <span th:with="var=${0}"> </span>-->
+            <!--            <span th:with="var=${0}"> </span>-->
             <th:block th:each="record : ${orders}">
 
 
@@ -31,15 +31,17 @@
                     <td th:utext="${record.getTimeSlot().getMaster().getName()+' '+record.getTimeSlot().getMaster().getSurname()}"></td>
                     <td th:utext="${record.getTimeSlot().getFormatData()}"></td>
                     <td>
-                        <span th:text="${record.getPaymentStatus()}" th:remove="tag">title</span>
+                        <span th:text="#{'users.payment.'+${record.getPaymentStatus()}}" th:remove="tag">title</span>
 
-                        <form th:action="@{/client/{id}/paid(id=${record.getId()})}" th:if="${record.getPaymentStatus().name() == 'OPENED'}">
+                        <form th:action="@{/client/{id}/paid(id=${record.getId()})}"
+                              th:if="${record.getPaymentStatus().name() == 'OPENED'}">
                             <input class="myButton" type="submit" th:value='#{users.payment}'/>
                         </form>
 
-                        <form th:action="@{/client/{id}/review(id=${record.getId()})}" th:if="${record.getPaymentStatus().name() == 'CLOSED'}">
-                            <div th:if="${record.getPerformance_status() == 'CLOSED'}">
-                            <input class="myButton" type="submit" th:value='#{users.feedback}'/></div>
+                        <form th:action="@{/client/{id}/review(id=${record.getId()})}"
+                              th:if="${record.getPaymentStatus().name() == 'CLOSED'}">
+                            <div th:if="${record.getPerformance_status().name() == 'CLOSED'}">
+                                <input class="myButton" type="submit" th:value='#{users.feedback}'/></div>
                         </form>
 
             </th:block>

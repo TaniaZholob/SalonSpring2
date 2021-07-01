@@ -34,22 +34,23 @@
                         <td th:utext="${record.getUser().getFirstname()+' '+record.getUser().getLastname()}"></td>
                         <td th:utext="${record.getTimeSlot().getMaster().getName()+' '+record.getTimeSlot().getMaster().getSurname()}"></td>
 
-                        <td th:utext="${record.getProcedure().getTitle()}"></td>
+                        <td th:utext="#{'procedure.'+${record.getProcedure().getTitle()}}"></td>
                         <td th:utext="${record.getTimeSlot().getFormatData()}"></td>
-                        <td><span th:text="${record.getPaymentStatus()}" th:remove="tag">title</span>
+                        <td><span th:text="#{'users.payment.'+${record.getPaymentStatus().name()}}"
+                                  th:remove="tag">title</span>
 
-                            <form th:method="PATCH" th:action="@{/admin/{id}/confirmPayment(id=${record.getId()})}" th:if="${record.getPaymentStatus().name() == 'CONFIRMED'}" >
+                            <form th:method="PATCH" th:action="@{/admin/{id}/confirmPayment(id=${record.getId()})}"
+                                  th:if="${record.getPaymentStatus().name() == 'CONFIRMED'}">
                                 <input class="myButton" type="submit" th:value='#{confirm.payment}'/>
                             </form>
 
-
-
-
                         </td>
                         <td th:utext="${record.getPerformance_status()}"></td>
-                        <td><form th:action="@{/admin/{id}/edit(id=${record.getId()})}">
-                            <input class="myButton" type="submit" th:value='#{record.change}'/>
-                        </form></td>
+                        <td>
+                            <form th:action="@{/admin/{id}/edit(id=${record.getId()})}">
+                                <input class="myButton" type="submit" th:value='#{record.change}'/>
+                            </form>
+                        </td>
                     </tr>
                 </th:block>
             </table>
@@ -60,25 +61,25 @@
             <ul class="pagination">
 
 
-                    <li class="page-item" th:if="${page.hasPrevious()}">
-                        <a class="page-link" th:href="@{/admin/records(page=${page.getNumber()-1},size=${page.size})}">Previous</a>
-                    </li>
+                <li class="page-item" th:if="${page.hasPrevious()}">
+                    <a class="page-link" th:href="@{/admin/records(page=${page.getNumber()-1},size=${page.size})}">Previous</a>
+                </li>
 
 
                 <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
-                      <li class="page-item active" th:if="${page.number == i}">
+                    <li class="page-item active" th:if="${page.number == i}">
                         <a class="page-link">[[${i}+1]]</a>
-                      </li>
-                        <li class="page-item" th:unless="${page.number == i}">
-                            <a class="page-link" th:href="@{/admin/records(page=${i},size=${page.size})}">[[${i}+1]]</a>
-                        </li>
+                    </li>
+                    <li class="page-item" th:unless="${page.number == i}">
+                        <a class="page-link" th:href="@{/admin/records(page=${i},size=${page.size})}">[[${i}+1]]</a>
+                    </li>
                 </th:block>
 
 
-                    <li class="page-item" th:if="${page.hasNext()}">
-                        <a class="page-link"
-                           th:href="@{/admin/records(page=${page.number+1},size=${page.size})}">Next</a>
-                    </li>
+                <li class="page-item" th:if="${page.hasNext()}">
+                    <a class="page-link"
+                       th:href="@{/admin/records(page=${page.number+1},size=${page.size})}">Next</a>
+                </li>
             </ul>
         </nav>
     </div>
